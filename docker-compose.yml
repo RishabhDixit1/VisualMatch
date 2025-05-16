@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src # For live reload during development
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000/api
+      # Ensures create-react-app dev server works well in Docker
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - backend
+    stdin_open: true # For create-react-app dev server
+    tty: true        # For create-react-app dev server
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/app:/app  # Source code mapping
+      - image_data:/app/static/images # Persist uploaded images
+      - faiss_index_data:/app/faiss_index_storage # Persist FAISS index
+    environment:
+      - TENSORFLOW_USE_LEGACY_KERAS=1 # Important for some TF versions
+
+volumes:
+  image_data:
+  faiss_index_data:

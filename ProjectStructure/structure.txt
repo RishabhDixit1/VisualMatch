@@ -1,0 +1,21 @@
+visualmatch/
+├── backend/
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── main.py
+│   │   └── static/
+│   │       └── images/  (Uploaded images will go here)
+│   ├── faiss_index_storage/ (FAISS index will be saved here)
+│   ├── Dockerfile
+│   └── requirements.txt
+├── frontend/
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── App.css
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── Dockerfile
+│   └── package.json
+├── docker-compose.yml
+└── README.md

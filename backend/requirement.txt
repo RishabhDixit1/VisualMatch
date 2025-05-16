@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+tensorflow>=2.8.0 # Ensure compatibility with ResNet50 application API
+Pillow
+numpy
+scikit-learn
+python-multipart # For file uploads
+faiss-cpu # For FAISS (CPU version)
+requests # For potentially downloading model weights if needed, though TF handles it
