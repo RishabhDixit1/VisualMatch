@@ -1,4 +1,5 @@
 flask
+flask_sqlalchemy
 flask_cors # To allow our frontend to talk to our backend
 Pillow # For image manipulation
 psycopg2-binary # To connect to PostgreSQL

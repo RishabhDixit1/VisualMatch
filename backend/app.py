@@ -10,12 +10,21 @@ from PIL import Image
 import torch
 from transformers import DetrImageProcessor, DetrForObjectDetection
 import requests # Used to fetch image from URL if needed, good for testing
+
+
+
+
+# ----------------- INITIALIZATION -----------------
+# Initialize the Flask application
+app = Flask(__name__)
+# Enable Cross-Origin Resource Sharing (CORS) to allow the frontend to access the API
+CORS(app)
 # --- Database Configuration ---
 # Get the database URL from the environment variable we set in docker-compose.yml
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+# Use SQLite as a fallback for local development if DATABASE_URL is not set
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///local.db')
 # Disable a feature of SQLAlchemy that we don't need and which adds overhead
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 # Initialize the SQLAlchemy object with our Flask app
 db = SQLAlchemy(app)
 
@@ -30,12 +39,7 @@ class AnalysisResult(db.Model):
 
     def __repr__(self):
         return f'<AnalysisResult {self.id}>'
-# ----------------- INITIALIZATION -----------------
 
-# Initialize the Flask application
-app = Flask(__name__)
-# Enable Cross-Origin Resource Sharing (CORS) to allow the frontend to access the API
-CORS(app)
 
 # ----------------- AI MODEL LOADING -----------------
 # This part is crucial and can be slow, so it's done once when the server starts.

@@ -1,6 +1,6 @@
 VisualMatch: Image Recognition and Suggestion System
 VisualMatch is a full-stack web application that analyzes user-uploaded images to identify objects and provides dynamic suggestions for improving the image or its environment. The entire project is containerized with Docker for easy, "plug-and-play" setup.
-![alt text](<Screenshot (1481).png>)
+![alt text](<Screenshot (1486).png>)
 Tech Stack
 Frontend: React
 Backend: Python, Flask
