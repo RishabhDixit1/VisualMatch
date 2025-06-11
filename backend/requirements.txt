@@ -1,0 +1,7 @@
+flask
+flask_cors # To allow our frontend to talk to our backend
+Pillow # For image manipulation
+psycopg2-binary # To connect to PostgreSQL
+SQLAlchemy # To interact with the database easily
+torch # The core machine learning framework
+transformers # For the object detection model

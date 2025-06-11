@@ -1,0 +1,62 @@
+/* App.css - General styles for our application layout */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  border-bottom: 1px solid #555;
+  padding-bottom: 1rem;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.upload-section, .results-section {
+  background-color: #2a2a2a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: left;
+}
+
+h2 {
+  margin-top: 0;
+  color: #a6c1ee;
+}
+
+.image-preview {
+  max-width: 100%;
+  height: auto;
+  margin-top: 1rem;
+  border-radius: 4px;
+}
+
+.results-list, .suggestions-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.results-list li, .suggestions-list li {
+  background-color: #3c3c3c;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 4px;
+}
+
+.loading-indicator {
+  font-style: italic;
+  color: #ccc;
+}

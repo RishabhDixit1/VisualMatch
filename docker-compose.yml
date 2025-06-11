@@ -1,0 +1,74 @@
+# Specify the Docker Compose file format version. Version 3.8 is a stable choice.
+version: '3.8'
+
+# Define the services (containers) that make up the application.
+services:
+  # The backend service (Python/Flask API)
+  backend:
+    # Tell Docker Compose to build the image from the 'backend' directory.
+    build: ./backend
+    # Name the container for easier identification.
+    container_name: visualmatch_backend
+    # Map port 5001 on the host machine to port 5001 in the container.
+    # This is mainly for direct testing; the frontend will connect internally.
+    ports:
+      - "5001:5001"
+    # Mount the backend source code into the container.
+    # This allows for hot-reloading: changes in your local code will be
+    # reflected inside the container without rebuilding the image.
+    volumes:
+      - ./backend:/app
+    # Set environment variables for the backend.
+    # We will use these to connect to the database.
+    environment:
+      # These values must match the ones defined in the 'db' service below.
+      - DATABASE_URL=postgresql://user:password@db:5432/visualmatchdb
+    # Make the backend dependent on the database.
+    # This ensures the 'db' service starts before the 'backend' service.
+    depends_on:
+      - db
+
+  # The frontend service (React/Nginx)
+  frontend:
+    # Build the image from the 'frontend' directory.
+    build: ./frontend
+    # Name the container.
+    container_name: visualmatch_frontend
+    # Map port 80 on the host machine to port 80 in the container.
+    # This means you can access the web app at http://localhost in your browser.
+    ports:
+      - "80:80"
+    # Mount the frontend source code for hot-reloading during development.
+    # Note: For a pure Nginx server, this isn't as effective without a dev server,
+    # but it's good practice to include. In production, you'd remove this.
+    volumes:
+      - ./frontend:/app
+    # The frontend depends on the backend to be available.
+    depends_on:
+      - backend
+
+  # The database service (PostgreSQL)
+  db:
+    # Use the official PostgreSQL image from Docker Hub.
+    image: postgres:13-alpine
+    # Name the container.
+    container_name: visualmatch_db
+    # Mount a volume to persist database data.
+    # 'postgres_data' is a named volume managed by Docker.
+    # This ensures that your data is not lost when the container is stopped or removed.
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    # Set the environment variables required by the PostgreSQL image
+    # to initialize the database and user.
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=visualmatchdb
+    # Expose the PostgreSQL port (5432) to other services in the network,
+    # but not to the host machine, for security.
+    expose:
+      - "5432"
+
+# Define the named volumes used by the services.
+volumes:
+  postgres_data:
