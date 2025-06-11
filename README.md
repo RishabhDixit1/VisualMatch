@@ -9,8 +9,7 @@ AI / ML: PyTorch, Hugging Face Transformers
 Containerization: Docker, Docker Compose
 How to Run This Project
 You only need Docker and Git installed on your machine.
-Clone the repository:
-git clone https://github.com/your-username/VisualMatch.git
+Clone the repository: https://github.com/RishabhDixit1/VisualMatch.git
 Use code with caution.
 Sh
 Navigate into the project directory:
